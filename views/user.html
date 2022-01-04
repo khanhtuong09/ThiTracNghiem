@@ -1,0 +1,78 @@
+<div ng-controller="UserCtrl">
+
+    <form class="form-signin" ng-submit="insert()">
+        
+            <p>
+                Username<br>
+                <input type="text" ng-model="formData.username" class="form-control" required>
+                Password<br>
+                <input type="password" ng-model="formData.password" class="form-control" required>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default">Thêm</button>
+                </div>
+    </form>
+
+</div>
+
+<div ng-controller="UserCtrl">
+    <table class="table row-border table-striped table-hover col-12">
+        <thead>
+            <tr>
+
+                <th style="width: 100%">Username</th>
+                <th style="width: 100%">Password</th>
+                <th style="width: 100%"></th>
+                <th style="width: 100%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="contact in user">
+                <td>{{contact.Username}}</td>
+                <td>{{contact.Password}}</td>
+                <td>
+                    <a class="btn btn-outline-success" ng-click="edit(contact)" data-toggle="modal"
+                        data-target="#Updateus">
+                        <ion-icon name="create"></ion-icon> CẬP NHẬT
+                    </a>
+                </td>
+                <td>
+
+                    <a class="btn btn-outline-danger" ng-click="remove(contact)">
+                        <ion-icon name="trash"></ion-icon> XÓA BỎ
+                    </a>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    <div class="modal fade" id="Updateus" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+
+                    <form ng-submit="update()">
+                        <div hidden class="form-group">
+                            <input type="text" disabled="disabled" class="form-control" ng-model="edituser.UserId">
+                        </div>
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" ng-model="edituser.Username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="text" class="form-control" ng-model="edituser.Password" required>
+                        </div>
+                        <button class='btn btn-default' type="submit">Cập Nhật</button>
+                        <button type="button" id="capnhat" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

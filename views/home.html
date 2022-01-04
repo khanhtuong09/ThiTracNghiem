@@ -1,0 +1,18 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Home</li>
+  </ol>
+</nav>
+<div class="row" ng-controller="homeCtrl">
+    <div class="col-md-4" ng-repeat="logo in logos">
+        <div class="card mb-4 box-shadow">
+          <form  ng-submit="quiz(logo)">
+            <img class="card-img-top" src="images/logos/{{logo.Logo}}">
+            <div class="card-body">
+                <button type="submit" style="width: 100%" class="btn btn-outline-danger" >{{logo.Name}}</p>
+
+            </div>
+          </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,312 @@
+<!doctype html>
+<html ng-app="app">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://unpkg.com/ionicons@4.5.5/dist/ionicons.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/poly.css">
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <title>Home</title>
+</head>
+
+<body style="background-color: gray">
+    <div class="container-fluid" style="background-color: white">
+        <header class="row">
+            <img class="col-sm-12" src="images/banner.png">
+
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark col-sm  -12">
+
+                <a class="navbar-brand"></a>
+                <button class="navbar-toggler" data-target="#my-nav" data-toggle="collapse" aria-controls="my-nav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div id="my-nav" class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                        <li><a ui-sref="home" class="nav-link">Trang Chủ</a></li>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ui-sref="about">Giới Thiệu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ui-sref="contac">Liên Hệ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ui-sref="add">Góp Ý</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+            </nav>
+
+        </header>
+
+
+
+
+        <div class="row">
+            <!-- hom -->
+            <article ui-view class="col-sm-9">
+
+            </article>
+            <aside class="col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+
+                        <strong>
+                            <ion-icon name="list-box"></ion-icon> TÀI KHOẢN <b id="tk1" style="color: green"></b>
+                        </strong>
+                    </div>
+                    <div class="list-group">
+                        <button type="button" id="dangnhap1" class="list-group-item" data-toggle="modal"
+                            data-target="#myModal">Đăng
+                            Nhập</button>
+                        <button type="button" id="dangky1" class="list-group-item" data-toggle="modal"
+                            data-target="#dangky">Đăng
+                            Ký</button>
+                        <button id="quenmk1" class="list-group-item" data-toggle="modal" data-target="#nhanmk">Quên Mật
+                            Khẩu</button>
+                        <a id="doimk1" class="list-group-item" data-toggle="modal" data-target="#doimk">Đổi Mật Khẩu</a>
+                        <a id="dangxuat1" onclick="logout()" class="list-group-item">Đăng Xuất</a>
+                    </div>
+                </div>
+                <div class="panel panel-default" id="quanly">
+                    <div class="panel-heading">
+
+                        <strong>
+                            <ion-icon name="list-box"></ion-icon> QUẢN LÝ
+                        </strong>
+                    </div>
+                    <div class="list-group">
+                        <a ui-sref="qltk" class="list-group-item">Quản Lý Tài Khoản</a>
+                    </div>
+                </div>
+                <div class="panel panel-default" ng-controller="homeCtrl">
+                    <div class="panel-heading">
+
+                        <strong>
+                            <ion-icon name="list-box"></ion-icon> DANH MỤC MÔN HỌC
+                        </strong>
+                    </div>
+                    <div class="list-group">
+                        <form ng-repeat="logo in logos" ng-submit="quiz(logo)">
+                            <button type="submit" class="list-group-item">{{logo.Name}}</p>
+                        </form>
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <footer class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading text-center">
+                        <p>FPT Polytechnic &copy; 2017.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div ng-controller="addUserCtrl">
+        <div class="modal fade" id="dangky" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form class="form-signin" ng-submit="add()">
+                            <p>ĐĂNG KÝ</p>
+                            Username<br>
+                            <input type="text" class="form-control" ng-model="formData.username" required>
+                            Password<br>
+                            <input type="password" class="form-control" ng-model="formData.password" required>
+                            Email<br>
+                            <input type="email" class="form-control" ng-model="formData.email" required>
+                            Fullname<br>
+                            <input type="text" class="form-control" ng-model="formData.fullname" required>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-default">Đăng Ký</button>
+                                <button type="button" class="btn btn-default" id="btndk"
+                                    data-dismiss="modal">Đóng</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div ng-controller="homeCtrl">
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form class="form-signin" ng-submit="login()">
+                            <p>ĐĂNG NHẬP</p>
+                            <p style="color: red" id="tb">
+                                <p>
+                                    Username<br>
+                                    <input type="text" ng-model="formData.username" class="form-control" required>
+                                    Password<br>
+                                    <input type="password" ng-model="formData.password" class="form-control" required>
+
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-default">Đăng Nhập</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                                    </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div ng-controller="homeCtrl">
+        <div class="modal fade" id="doimk" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form class="form-signin" ng-submit="changemk()">
+                            <p>ĐỔI MẬT KHẨU</p>
+                            <p style="color: red" id="tb">
+                            </p>Tài Khoản: <b id="tk" style="color: green"></b><br><br>
+                            <script>
+                                var myaccountJson = sessionStorage.getItem("User");
+                                var myaccount = JSON.parse(myaccountJson);
+                                document.getElementById("tk").innerHTML=myaccount.username;
+                                document.getElementById("tk1").innerHTML="("+myaccount.username+")";
+                            </script>
+                            Mật khẩu cũ<br>
+                            <input type="password" ng-model="formData.passwordold" class="form-control" required>
+                            Mật khẩu mới<br>
+                            <input type="password" ng-model="formData.passwordnew" class="form-control" required>
+                            Xác nhận mật khẩu mới<br>
+                            <input type="password" ng-model="formData.passwordcheck" class="form-control" required>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-default">Đổi Thôi :)</button>
+                                <button type="button"  class="btn btn-default"  data-dismiss="modal" id="doimkne">Thôi Khỏi Đổi
+                                    :(</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div ng-controller="homeCtrl">
+        <div class="modal fade" id="nhanmk" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+
+                        <form class="form-signin" ng-submit="quenmkroi()">
+                            <p>QUÊN MẬT KHẨU</p>
+                            <p style="color: red" id="messenger">
+                            </p>
+
+                            Tên Đăng Nhập<br>
+                            <input type="text" ng-model="formData.username" class="form-control" required>
+                            Email<br>
+                            <input type="text" ng-model="formData.email" class="form-control" required>
+                            Mật Khẩu Của Bạn Là<br>
+                            <input type="text" ng-model="formData.hidden" class="form-control" disabled="disabled">
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-default"> Hiện MK :D</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Thôi Khỏi Đi
+                                    D:</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="https://unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-datatables/0.6.2/angular-datatables.min.js"></script>
+</body>
+
+
+<script>
+    function logout() {
+
+        var cf = confirm("Bạn muốn đăng xuất?");
+        if (cf == true) {
+            sessionStorage.clear();
+            window.location.reload()
+        }
+    }
+    if (sessionStorage.getItem("User") != null) {
+        document.getElementById("dangnhap1").hidden = true;
+        document.getElementById("doimk1").hidden = false;
+        document.getElementById("dangky1").hidden = true;
+        document.getElementById("quenmk1").hidden = true;
+        document.getElementById("dangxuat1").hidden = false;
+    } else {
+        document.getElementById("doimk1").hidden = true;
+        document.getElementById("dangxuat1").hidden = true;
+        document.getElementById("dangnhap1").hidden = false;
+        document.getElementById("dangky1").hidden = false;
+        document.getElementById("quenmk1").hidden = false;
+    }
+    // Initialize Firebase (Tao Project tren Firebase va thay key config cua ban)
+    var config = {
+        apiKey: "AIzaSyCcCFTmSxSiCtbLQfioSdTxbgHKGSc_Xcc",
+        authDomain: "asmfontend-bce61.firebaseapp.com",
+        databaseURL: "https://asmfontend-bce61.firebaseio.com",
+        projectId: "asmfontend-bce61",
+        storageBucket: "",
+        messagingSenderId: "355203233234"
+    };
+    firebase.initializeApp(config);
+    var app_firebase = {};
+    app_firebase = firebase;
+    function fnadd(path, body, callback) {
+
+    }
+</script>
+<script src="js/app.js"></script>
+<script src="js/config.js"></script>
+<script src="js/controllers.js"></script>
+
+</html>
